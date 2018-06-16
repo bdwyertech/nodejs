@@ -5,7 +5,7 @@ when 'debian'
   end
 
   apt_repository 'node.js' do
-    uri node['nodejs']['repo']
+    uri node['nodejs']['repo'] % { major_ver: node['nodejs']['version'].to_i }
     distribution node['lsb']['codename']
     components ['main']
     keyserver node['nodejs']['keyserver']
@@ -14,7 +14,7 @@ when 'debian'
 when 'rhel', 'amazon'
   yum_repository 'node.js' do
     description 'nodesource.com nodejs repository'
-    baseurl node['nodejs']['repo']
+    baseurl node['nodejs']['repo'] % { major_ver: node['nodejs']['version'].to_i }
     gpgkey node['nodejs']['key']
   end
 end
